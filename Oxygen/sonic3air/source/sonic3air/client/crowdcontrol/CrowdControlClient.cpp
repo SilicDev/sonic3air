@@ -78,16 +78,18 @@ void CrowdControlClient::evaluateMessage(const Json::Value& message)
 	const std::string viewer = message["viewer"].asString();
 	// TODO: https://github.com/BttrDrgn/ccpp/blob/master/ccpp.cpp removes double quotes " here for code and viewer, is this needed for us as well?
 	const int id = message["id"].asInt();
+	const Json::Value quantity_value = message["quantity"];
+	const int quantity = quantity_value.isNull() ? 1 : quantity_value.asInt();
 
 	// Trigger the effect
-	const StatusCode statusCode = triggerEffect(code);
+	const StatusCode statusCode = triggerEffect(code, quantity);
 
 	// Send back a response
 	const std::string response = "{\"id\":" + std::to_string(id) + ",\"status\":" + std::to_string((int)statusCode) + "}";
 	mSocket.sendData((const uint8*)response.c_str(), response.length() + 1);
 }
 
-CrowdControlClient::StatusCode CrowdControlClient::triggerEffect(const std::string& effectCode)
+CrowdControlClient::StatusCode CrowdControlClient::triggerEffect(const std::string& effectCode, const int quantity)
 {
 	// Prepare and execute script call
 	CodeExec& codeExec = Application::instance().getSimulation().getCodeExec();
@@ -100,6 +102,9 @@ CrowdControlClient::StatusCode CrowdControlClient::triggerEffect(const std::stri
 	lemon::Runtime::FunctionCallParameters::Parameter& param1 = vectorAdd(execData.mParams.mParams);
 	param1.mDataType = &lemon::PredefinedDataTypes::STRING;
 	param1.mStorage = effectCodeHash;
+	lemon::Runtime::FunctionCallParameters::Parameter& param2 = vectorAdd(execData.mParams.mParams);
+	param2.mDataType = &lemon::PredefinedDataTypes::UINT_16;
+	param2.mStorage = quantity;
 
 	codeExec.executeScriptFunction("Game.triggerCrowdControlEffect", false, &execData);
 

@@ -39,7 +39,7 @@ private:
 
 private:
 	void evaluateMessage(const Json::Value& message);
-	StatusCode triggerEffect(const std::string& effectCode);
+	StatusCode triggerEffect(const std::string& effectCode, const int quantity);
 
 private:
 	bool mSetupDone = false;
