@@ -28,6 +28,7 @@
 #include "oxygen/helper/JsonHelper.h"
 #include "oxygen/helper/Logging.h"
 #include "oxygen/network/EngineServerClient.h"
+#include "oxygen/network/archipelago/ArchipelagoClient.h"
 #include "oxygen/network/crowdcontrol/CrowdControlClient.h"
 #include "oxygen/platform/CommandForwarder.h"
 #include "oxygen/platform/CrashHandler.h"
@@ -65,6 +66,7 @@ struct EngineMain::Internal
 	DownloadManager	   mDownloadManager;
 	EngineServerClient mEngineServerClient;
 	CrowdControlClient mCrowdControlClient;
+	ArchipelagoClient mArchipelagoClient;
 
 #if defined(PLATFORM_ANDROID)
 	AndroidJavaInterface mAndroidJavaInterface;

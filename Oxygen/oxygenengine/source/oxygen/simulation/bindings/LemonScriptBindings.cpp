@@ -27,6 +27,7 @@
 #include "oxygen/application/video/VideoOut.h"
 #include "oxygen/menu/imgui/ImGuiIntegration.h"
 #include "oxygen/helper/RandomNumberGenerator.h"
+#include "oxygen/network/archipelago/ArchipelagoClient.h"
 #include "oxygen/network/crowdcontrol/CrowdControlClient.h"
 #include "oxygen/rendering/parts/RenderParts.h"
 #include "oxygen/resources/PaletteCollection.h"
@@ -1350,6 +1351,29 @@ void LemonScriptBindings::registerBindings(lemon::Module& module)
 	{
 		builder.addNativeFunction("CrowdControl.sendResponse", lemon::wrap(CrowdControlClient::instance(), &CrowdControlClient::sendResponse), defaultFlags)
 			.setParameters("id", "status", "message");
+	}
+
+	// Archipelago
+	{
+
+		builder.addNativeFunction("Archipelago.init", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::init_lemon), defaultFlags)
+			.setParameters("address", "playerName", "password");
+		builder.addNativeFunction("Archipelago.shutdown", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::shutdown), defaultFlags);
+		builder.addNativeFunction("Archipelago.isConnected", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::isConnected), defaultFlags);
+		builder.addNativeFunction("Archipelago.checkLocation", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::checkLocation), defaultFlags)
+			.setParameters("location");
+		builder.addNativeFunction("Archipelago.sendGoal", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::sendGoal), defaultFlags);
+		builder.addNativeFunction("Archipelago.getSlotID", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::getPlayerID), defaultFlags);
+		builder.addNativeFunction("Archipelago.addIntSlotDataKey", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::addIntSlotDataKey), defaultFlags)
+			.setParameters("key");
+		builder.addNativeFunction("Archipelago.addStringSlotDataKey", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::addStringSlotDataKey), defaultFlags)
+			.setParameters("key");
+		builder.addNativeFunction("Archipelago.hasTag", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::hasTag), defaultFlags)
+			.setParameters("tag");
+		builder.addNativeFunction("Archipelago.removeTag", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::removeTag), defaultFlags)
+			.setParameters("tag");
+		builder.addNativeFunction("Archipelago.addTag", lemon::wrap(ArchipelagoClient::instance(), &ArchipelagoClient::addTag), defaultFlags)
+			.setParameters("tag");
 	}
 
 	// Register game-specific script bindings
