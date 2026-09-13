@@ -320,7 +320,7 @@ void ArchipelagoClient::removeTag(lemon::StringRef tag)
 	AP_RoomInfo room_info;
 	AP_GetRoomInfo(&room_info);
 	std::vector<std::string> tags = room_info.tags;
-	auto& itr = std::find(tags.begin(), tags.end(), tag_str);
+	auto itr = std::find(tags.begin(), tags.end(), tag_str);
 	if (itr != tags.end())
 	{
 		tags.erase(itr);
@@ -334,7 +334,7 @@ void ArchipelagoClient::addTag(lemon::StringRef tag)
 	AP_RoomInfo room_info;
 	AP_GetRoomInfo(&room_info);
 	std::vector<std::string> tags = room_info.tags;
-	auto& itr = std::find(tags.begin(), tags.end(), tag_str);
+	auto itr = std::find(tags.begin(), tags.end(), tag_str);
 	if (itr == tags.end())
 	{
 		tags.emplace_back(tag_str);
