@@ -315,7 +315,7 @@ void AP_SendItem(std::set<int64_t> const& locations) {
     std::set<int64_t> missing;
     for (int64_t idx : locations)
     {
-        auto& itr = missing_locations.find(idx);
+        auto itr = missing_locations.find(idx);
         if (itr != missing_locations.end())
         {
             missing.insert(idx);
