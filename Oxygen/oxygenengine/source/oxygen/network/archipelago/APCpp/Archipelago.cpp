@@ -548,7 +548,7 @@ int AP_GetRoomInfo(AP_RoomInfo* client_roominfo) {
 }
 
 AP_ConnectionStatus AP_GetConnectionStatus() {
-    if (!multiworld && auth) return AP_ConnectionStatus::Authenticated;
+    if (auth) return AP_ConnectionStatus::Authenticated;
     if (refused) {
         return AP_ConnectionStatus::ConnectionRefused;
     }
@@ -832,6 +832,7 @@ bool parse_response(std::string msg, std::string &request) {
             }
 
             ap_slot_data = root[i]["slot_data"];
+            auth = true;
 
             if ((root[i]["slot_data"].get("death_link", false).asBool() || root[i]["slot_data"].get("DeathLink", false).asBool()) && deathlinksupported) enable_deathlink = true;
             if (root[i]["slot_data"]["death_link_amnesty"] != Json::nullValue)

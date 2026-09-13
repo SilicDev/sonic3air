@@ -191,6 +191,11 @@ if (USE_IMGUI)
 endif()
 
 
+# ixwebsocket
+file(GLOB_RECURSE IXWEBSOCKET_SOURCES ${WORKSPACE_DIR}/framework/external/ixwebsocket/ixwebsocket/ixwebsocket/*.cpp)
+include_directories(${WORKSPACE_DIR}/framework/external/ixwebsocket/ixwebsocket)
+add_library(ixwebsocket ${IXWEBSOCKET_SOURCES})
+
 
 # rmxbase
 
@@ -286,6 +291,7 @@ if (NOT CMAKE_VERSION VERSION_LESS "3.16.0")
 endif()
 
 target_link_libraries(oxygen minizip)
+target_link_libraries(oxygen ixwebsocket)
 target_link_libraries(oxygen rmxmedia)
 target_link_libraries(oxygen rmxext_oggvorbis)
 target_link_libraries(oxygen lemonscript)

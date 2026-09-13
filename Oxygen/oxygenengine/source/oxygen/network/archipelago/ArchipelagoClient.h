@@ -42,12 +42,6 @@ public:
 	void removeTag(lemon::StringRef tag);
 	void addTag(lemon::StringRef tag);
 
-	void setDataInt(lemon::StringRef name, int64 data);
-	void setDataFloat(lemon::StringRef name, float data);
-	int64 getDataInt(lemon::StringRef name);
-	float getDataFloat(lemon::StringRef name);
-
-
 	lemon::StringRef getSeedName();
 	lemon::StringRef getPlayerName();
 	uint64 getPlayerID();
@@ -57,9 +51,7 @@ public:
 	JsonReader& getLastPacketReader() { return mLastPacketReader; }
 
 	/* Deprecated functions */
-	bool isZoneAllowed(lemon::StringRef zone);
 	bool isLocationAllowedForChar(uint64 id, uint8 character);
-	void sendDeath();
 	void sendBounce(lemon::StringRef bounce);
 private:
 	bool mIniting = false;
@@ -88,6 +80,8 @@ private:
 
 	std::string mPlayerName;
 	uint64 mProcessedItems = 0;
+	bool mNewItems = false;
+	bool mNewProg = false;
 	std::unordered_map<uint64, uint64> mItems;
 	std::set<uint64> mCheckedLocations;
 
