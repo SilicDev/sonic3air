@@ -852,8 +852,8 @@ bool parse_response(std::string msg, std::string &request) {
                     }
                     map_slotdata_callback_mapintint[key](out);
                 } else {
-                    if (key != "death_link" && key != "death_link_amnesty" && key != "DeathLink" && key != "DeathLink_Amnesty")
-                        logfunc("AP: Warning: Unmapped slot data with key '" + key + "'!");
+                    //if (key != "death_link" && key != "death_link_amnesty" && key != "DeathLink" && key != "DeathLink_Amnesty")
+                        //logfunc("AP: Warning: Unmapped slot data with key '" + key + "'!");
                 }
             }
 
