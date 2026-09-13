@@ -7,7 +7,7 @@
 #include <set>
 #include <functional>
 
-static Json::Value ap_slot_data;
+inline Json::Value ap_slot_data;
 
 void AP_Init(const char*, const char*, const char*, const char*);
 void AP_Init(const char*);
