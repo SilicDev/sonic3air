@@ -65,7 +65,6 @@ std::map<std::pair<std::string,int64_t>, std::string> map_item_id_name;
 
 // Data Sets
 std::set<int> teams_set;
-std::set<int64_t> missing_locations;
 
 // Callback function pointers
 std::function<void()> resetItemValues = nullptr;
@@ -162,6 +161,7 @@ void AP_Init(const char* ip, const char* game, const char* player_name, const ch
             }
             else if (msg->type == ix::WebSocketMessageType::Error || msg->type == ix::WebSocketMessageType::Close)
             {
+                logfunc("WebSocket error: " + msg->errorInfo.reason);
                 auth = false;
                 for (std::pair<std::string,AP_GetServerDataRequest*> itr : map_server_data) {
                     itr.second->status = AP_RequestStatus::Error;
@@ -625,6 +625,7 @@ void AP_CommitServerData() {
             *(request.second) = AP_RequestStatus::Done;
         if (!multiworld)
             resolveDataStorageOp(request.first);
+            
         queue_server_data.pop();
     }
     if (multiworld) APSend(writer.write(req));
@@ -955,6 +956,7 @@ bool parse_response(std::string msg, std::string &request) {
                 // Filter out itemrecv messages, which would otherwise be duplicated from the itemrecv callback
                 if (getPlayer(0, root[i]["receiving"].asInt()).alias == getPlayer(0, ap_player_id).alias) continue;
                 AP_NetworkPlayer recv_player = getPlayer(0, root[i]["receiving"].asInt());
+                AP_NetworkPlayer send_player = getPlayer(0, root[i]["item"]["player"].asInt());
                 AP_ItemSendMessage* msg = new AP_ItemSendMessage;
                 msg->type = AP_MessageType::ItemSend;
                 msg->item = AP_NetworkItem{ 
@@ -964,7 +966,7 @@ bool parse_response(std::string msg, std::string &request) {
                     root[i]["item"]["flags"].asInt(),
                 };
                 msg->item.itemName = AP_GetItemName(recv_player.game, msg->item.item);
-                msg->item.locationName = AP_GetLocationName(recv_player.game, msg->item.location);
+                msg->item.locationName = AP_GetLocationName(send_player.game, msg->item.location);
                 msg->item.playerName = getPlayer(0, msg->item.player).name;
                 msg->recvPlayer = recv_player.alias;
                 msg->text = msg->item.itemName + std::string(" was sent to ") + msg->recvPlayer;
@@ -1054,14 +1056,15 @@ bool parse_response(std::string msg, std::string &request) {
                         root[i]["items"][j]["player"].asInt(),
                         root[i]["items"][j]["flags"].asInt(),
                 };
+                
+                AP_NetworkPlayer sender = getPlayer(0, root[i]["items"][j]["player"].asInt());
                 item.itemName = AP_GetItemName(ap_game, item.item);
-                item.locationName = AP_GetLocationName(ap_game, item.location);
+                item.locationName = AP_GetLocationName(sender.game, item.location);
                 item.playerName = getPlayer(0, item.player).name;
                 notify = (item_idx == 0 && last_item_idx <= j && multiworld) || item_idx != 0;
                 getitemfunc(item, notify);
                 if (queueitemrecvmsg && notify) {
                     AP_ItemRecvMessage* msg = new AP_ItemRecvMessage;
-                    AP_NetworkPlayer sender = getPlayer(0, root[i]["items"][j]["player"].asInt());
                     msg->type = AP_MessageType::ItemRecv;
                     msg->item = item;
                     msg->sendPlayer = sender.alias;

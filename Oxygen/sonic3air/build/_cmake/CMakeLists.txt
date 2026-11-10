@@ -194,8 +194,13 @@ endif()
 # ixwebsocket
 file(GLOB_RECURSE IXWEBSOCKET_SOURCES ${WORKSPACE_DIR}/framework/external/ixwebsocket/ixwebsocket/ixwebsocket/*.cpp)
 include_directories(${WORKSPACE_DIR}/framework/external/ixwebsocket/ixwebsocket)
+find_package(OpenSSL REQUIRED)
 add_library(ixwebsocket ${IXWEBSOCKET_SOURCES})
-
+target_compile_definitions(ixwebsocket PUBLIC 
+    IXWEBSOCKET_USE_TLS=1
+    IXWEBSOCKET_USE_OPEN_SSL=1
+    IXWEBSOCKET_USE_ZLIB=1
+)
 
 # rmxbase
 
@@ -292,6 +297,8 @@ endif()
 
 target_link_libraries(oxygen minizip)
 target_link_libraries(oxygen ixwebsocket)
+target_link_libraries(oxygen ssl)
+target_link_libraries(oxygen crypto)
 target_link_libraries(oxygen rmxmedia)
 target_link_libraries(oxygen rmxext_oggvorbis)
 target_link_libraries(oxygen lemonscript)
