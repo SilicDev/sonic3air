@@ -15,6 +15,10 @@ cmake -DCMAKE_GENERATOR_PLATFORM=x64 -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreaded
 pushd ixwebsocket\build
 %msbuildPath% ixwebsocket.sln /target:ixwebsocket /property:Configuration=Debug   /property:Platform=x64 -verbosity:minimal
 %msbuildPath% ixwebsocket.sln /target:ixwebsocket /property:Configuration=Release /property:Platform=x64 -verbosity:minimal
+pushd mbedtls_bin
+%msbuildPath% "Mbed TLS.sln" /target:mbedtls /property:Configuration=Debug   /property:Platform=x64 -verbosity:minimal
+%msbuildPath% "Mbed TLS.sln" /target:mbedtls /property:Configuration=Release   /property:Platform=x64 -verbosity:minimal
+popd
 popd
 
 pushd ixwebsocket\build\mbedtls_bin
@@ -28,6 +32,10 @@ cmake -DCMAKE_GENERATOR_PLATFORM=Win32 -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThread
 pushd ixwebsocket\buildWin32
 %msbuildPath% ixwebsocket.sln /target:ixwebsocket /property:Configuration=Debug   /property:Platform=Win32 -verbosity:minimal
 %msbuildPath% ixwebsocket.sln /target:ixwebsocket /property:Configuration=Release /property:Platform=Win32 -verbosity:minimal
+pushd mbedtls_bin
+%msbuildPath% "Mbed TLS.sln" /target:mbedtls /property:Configuration=Debug   /property:Platform=Win32 -verbosity:minimal
+%msbuildPath% "Mbed TLS.sln" /target:mbedtls /property:Configuration=Release   /property:Platform=Win32 -verbosity:minimal
+popd
 popd
 
 pushd ixwebsocket\buildWin32\mbedtls_bin

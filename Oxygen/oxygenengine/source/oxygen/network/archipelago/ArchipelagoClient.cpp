@@ -23,14 +23,8 @@
 	#if defined(_DEBUG)
 		#pragma comment(linker, "/NODEFAULTLIB:LIBCMT")
 	#endif
+	#pragma comment(lib, "bcrypt.lib")
 #endif
-
-//required for mbed tls, causes a lot of linker warnings too
-// TODO: figure out why mbed tls is not embedded in ixwebsocket.lib
-extern void __imp_setbuf(FILE*_Stream, char* _Buffer)
-{
-	setbuf(_Stream, _Buffer);
-}
 
 namespace functions
 {
