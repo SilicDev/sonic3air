@@ -200,6 +200,7 @@ declare function void System.setGlobalVariableValueByName(string variableName, s
 declare function void System.setGlobalVariableValueByName(string variableName, float value)
 declare function void System.setGlobalVariableValueByName(string variableName, double value)
 declare function void System.setGlobalVariableValueByName(string variableName, string value)
+declare function float System.now()
 declare function u32 System.rand()
 declare function float System.randomFloat()
 declare function s32 System.randRange(s32 minimum, s32 maximum)

@@ -8,6 +8,7 @@
 #include <functional>
 
 inline Json::Value ap_slot_data;
+inline std::set<int64_t> missing_locations;
 
 void AP_Init(const char*, const char*, const char*, const char*);
 void AP_Init(const char*);

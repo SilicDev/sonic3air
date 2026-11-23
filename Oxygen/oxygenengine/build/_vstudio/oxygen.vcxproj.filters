@@ -709,6 +709,9 @@
     <ClCompile Include="..\..\source\oxygen\network\archipelago\ArchipelagoClient.cpp">
       <Filter>network\archipelago</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiArchipelago.cpp">
+      <Filter>menu\imgui\implementations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\oxygen\helper\BitStream.h">
@@ -1320,6 +1323,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\oxygen\network\archipelago\ArchipelagoClient.h">
       <Filter>network\archipelago</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiArchipelago.h">
+      <Filter>menu\imgui\implementations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

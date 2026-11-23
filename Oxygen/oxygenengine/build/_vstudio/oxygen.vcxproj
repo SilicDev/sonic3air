@@ -116,6 +116,7 @@
     <ClCompile Include="..\..\source\oxygen\menu\imgui\ImGuiIntegration.cpp" />
     <ClCompile Include="..\..\source\oxygen\menu\imgui\ImGuiManager.cpp" />
     <ClCompile Include="..\..\source\oxygen\menu\imgui\ImGuiSoftwareRenderer.cpp" />
+    <ClCompile Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiArchipelago.cpp" />
     <ClCompile Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiFileBrowser.cpp" />
     <ClCompile Include="..\..\source\oxygen\menu\loui\LouiButton.cpp" />
     <ClCompile Include="..\..\source\oxygen\menu\loui\LouiDefinitions.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="..\..\source\oxygen\menu\imgui\ImGuiIntegration.h" />
     <ClInclude Include="..\..\source\oxygen\menu\imgui\ImGuiManager.h" />
     <ClInclude Include="..\..\source\oxygen\menu\imgui\ImGuiSoftwareRenderer.h" />
+    <ClInclude Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiArchipelago.h" />
     <ClInclude Include="..\..\source\oxygen\menu\imgui\implementations\ImGuiFileBrowser.h" />
     <ClInclude Include="..\..\source\oxygen\menu\loui\LouiButton.h" />
     <ClInclude Include="..\..\source\oxygen\menu\loui\LouiDefinitions.h" />
